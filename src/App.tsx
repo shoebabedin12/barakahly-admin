@@ -12,6 +12,8 @@ import { ColorForm } from "./pages/colors/ColorForm";
 import { ColorsList } from "./pages/colors/ColorsList";
 import { ComingSoon } from "./pages/ComingSoon";
 import { Dashboard } from "./pages/Dashboard";
+import { LandingEditor } from "./pages/landing/LandingEditor";
+import { LandingPagesList } from "./pages/landing/LandingPagesList";
 import { Login } from "./pages/Login";
 import { OrderDetail } from "./pages/orders/OrderDetail";
 import { OrdersList } from "./pages/orders/OrdersList";
@@ -41,6 +43,9 @@ export function App() {
               <Route path="/categories" element={<CategoriesList />} />
               <Route path="/categories/new" element={<CategoryForm />} />
               <Route path="/categories/:id/edit" element={<CategoryForm />} />
+
+              <Route path="/landing-pages" element={<LandingPagesList />} />
+              <Route path="/landing-pages/:categoryId" element={<LandingEditor />} />
 
               <Route path="/brands" element={<BrandsList />} />
               <Route path="/brands/new" element={<BrandForm />} />

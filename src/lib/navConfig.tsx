@@ -13,6 +13,7 @@ import {
   IconPhoto,
   IconRectangleStack,
   IconShoppingBag,
+  IconSparkles,
   IconShoppingCart,
   IconSwatch,
   IconTag,
@@ -40,6 +41,7 @@ export const navGroups: NavGroup[] = [
     title: "Catalog",
     children: [
       { title: "Categories", to: "/categories", icon: IconTag },
+      { title: "Landing Pages", to: "/landing-pages", icon: IconSparkles },
       { title: "Brands", to: "/brands", icon: IconBookmark },
       { title: "Products", to: "/products", icon: IconCube },
       { title: "Colors", to: "/colors", icon: IconSwatch },

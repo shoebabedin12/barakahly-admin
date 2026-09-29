@@ -350,3 +350,15 @@ export function IconBuildingStorefront({ className }: IconProps) {
     </Icon>
   );
 }
+
+export function IconSparkles({ className }: IconProps) {
+  return (
+    <Icon className={className}>
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M9.81 15.9 9 18.75l-.81-2.85a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.85-.81a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.81 2.85a4.5 4.5 0 0 0 3.09 3.09l2.85.81-2.85.81a4.5 4.5 0 0 0-3.09 3.09ZM18.26 8.72 18 9.75l-.26-1.03a3.38 3.38 0 0 0-2.46-2.46L14.25 6l1.03-.26a3.38 3.38 0 0 0 2.46-2.46L18 2.25l.26 1.03a3.38 3.38 0 0 0 2.46 2.46l1.03.26-1.03.26a3.38 3.38 0 0 0-2.46 2.46Z"
+      />
+    </Icon>
+  );
+}
