@@ -105,5 +105,12 @@ export const notYetBuiltRoutes = navGroups
         "/colors",
         "/sizes",
         "/orders",
+        "/customers",
+        "/coupons",
+        "/reviews",
+        "/shipping-zones",
+        "/payment-methods",
+        "/banners",
+        "/settings",
       ].includes(to),
   );

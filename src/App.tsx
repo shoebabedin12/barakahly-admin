@@ -21,6 +21,13 @@ import { ProductForm } from "./pages/products/ProductForm";
 import { ProductsList } from "./pages/products/ProductsList";
 import { SizeForm } from "./pages/sizes/SizeForm";
 import { SizesList } from "./pages/sizes/SizesList";
+import { BannerForm, BannersList } from "./pages/banners/Banners";
+import { CouponForm, CouponsList } from "./pages/coupons/Coupons";
+import { CustomerForm, CustomersList } from "./pages/customers/Customers";
+import { PaymentMethodForm, PaymentMethodsList } from "./pages/payment-methods/PaymentMethods";
+import { ReviewsList } from "./pages/reviews/Reviews";
+import { Settings } from "./pages/settings/Settings";
+import { ShippingZoneForm, ShippingZonesList } from "./pages/shipping-zones/ShippingZones";
 
 export function App() {
   return (
@@ -58,6 +65,30 @@ export function App() {
               <Route path="/sizes" element={<SizesList />} />
               <Route path="/sizes/new" element={<SizeForm />} />
               <Route path="/sizes/:id/edit" element={<SizeForm />} />
+
+              <Route path="/customers" element={<CustomersList />} />
+              <Route path="/customers/new" element={<CustomerForm />} />
+              <Route path="/customers/:id/edit" element={<CustomerForm />} />
+
+              <Route path="/coupons" element={<CouponsList />} />
+              <Route path="/coupons/new" element={<CouponForm />} />
+              <Route path="/coupons/:id/edit" element={<CouponForm />} />
+
+              <Route path="/reviews" element={<ReviewsList />} />
+
+              <Route path="/shipping-zones" element={<ShippingZonesList />} />
+              <Route path="/shipping-zones/new" element={<ShippingZoneForm />} />
+              <Route path="/shipping-zones/:id/edit" element={<ShippingZoneForm />} />
+
+              <Route path="/payment-methods" element={<PaymentMethodsList />} />
+              <Route path="/payment-methods/new" element={<PaymentMethodForm />} />
+              <Route path="/payment-methods/:id/edit" element={<PaymentMethodForm />} />
+
+              <Route path="/banners" element={<BannersList />} />
+              <Route path="/banners/new" element={<BannerForm />} />
+              <Route path="/banners/:id/edit" element={<BannerForm />} />
+
+              <Route path="/settings" element={<Settings />} />
 
               {notYetBuiltRoutes.map((path) => (
                 <Route key={path} path={path} element={<ComingSoon />} />
