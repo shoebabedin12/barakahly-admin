@@ -15,6 +15,7 @@ import { Dashboard } from "./pages/Dashboard";
 import { LandingEditor } from "./pages/landing/LandingEditor";
 import { LandingPagesList } from "./pages/landing/LandingPagesList";
 import { Login } from "./pages/Login";
+import { OrderCreate } from "./pages/orders/OrderCreate";
 import { OrderDetail } from "./pages/orders/OrderDetail";
 import { OrdersList } from "./pages/orders/OrdersList";
 import { ProductForm } from "./pages/products/ProductForm";
@@ -26,6 +27,7 @@ import { CouponForm, CouponsList } from "./pages/coupons/Coupons";
 import { CustomerForm, CustomersList } from "./pages/customers/Customers";
 import { PaymentMethodForm, PaymentMethodsList } from "./pages/payment-methods/PaymentMethods";
 import { ReviewsList } from "./pages/reviews/Reviews";
+import { Security } from "./pages/security/Security";
 import { Settings } from "./pages/settings/Settings";
 import { ShippingZoneForm, ShippingZonesList } from "./pages/shipping-zones/ShippingZones";
 import { InvestmentForm, InvestmentsList } from "./pages/investments/Investments";
@@ -49,6 +51,7 @@ export function App() {
               <Route path="/" element={<Dashboard />} />
 
               <Route path="/orders" element={<OrdersList />} />
+              <Route path="/orders/new" element={<OrderCreate />} />
               <Route path="/orders/:id" element={<OrderDetail />} />
 
               <Route path="/products" element={<ProductsList />} />
@@ -97,6 +100,7 @@ export function App() {
               <Route path="/banners/:id/edit" element={<BannerForm />} />
 
               <Route path="/settings" element={<Settings />} />
+              <Route path="/security" element={<Security />} />
 
               <Route path="/suppliers" element={<SuppliersList />} />
               <Route path="/suppliers/new" element={<SupplierForm />} />

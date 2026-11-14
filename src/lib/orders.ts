@@ -28,7 +28,7 @@ export function listOrders(filters: OrderListFilters = {}) {
 }
 
 export function getOrder(id: number) {
-  return apiGet<{ order: OrderDetail; mergeCandidates: OrderDetail[] }>(`/api/v1/admin/orders/${id}`);
+  return apiGet<OrderDetailResponse>(`/api/v1/admin/orders/${id}`);
 }
 
 export function updateOrderStatus(id: number, orderStatus: OrderStatus) {
@@ -49,4 +49,44 @@ export function removeShippingCharge(id: number) {
 
 export function mergeOrder(id: number, mergeOrderId: number) {
   return apiPost<{ order: OrderDetail }>(`/api/v1/admin/orders/${id}/merge`, { mergeOrderId });
+}
+
+export interface OrderDetailResponse {
+  order: OrderDetail;
+  mergeCandidates: OrderDetail[];
+  /** Signed SSLCommerz link to send the customer, for unpaid online-payment orders. */
+  payLink?: string | null;
+}
+
+export interface CreateOrderOptions {
+  products: {
+    id: number;
+    name: string;
+    sku: string;
+    price: number;
+    stock: number;
+    variants: { id: number; label: string; price: number; stock: number }[];
+  }[];
+  paymentMethods: { id: number; name: string; code: string }[];
+  shippingZones: { id: number; name: string; charge: number }[];
+}
+
+export interface CreateOrderInput {
+  customerName: string;
+  customerPhone: string;
+  customerEmail: string | null;
+  shippingAddress: string;
+  shippingZoneId: number | null;
+  shippingCharge: number;
+  paymentMethodId: number;
+  notes: string | null;
+  items: { productId: number; variantId: number | null; quantity: number; price: number }[];
+}
+
+export function getCreateOrderOptions() {
+  return apiGet<CreateOrderOptions>("/api/v1/admin/orders/create-options");
+}
+
+export function createOrder(input: CreateOrderInput) {
+  return apiPost<OrderDetailResponse>("/api/v1/admin/orders", input);
 }

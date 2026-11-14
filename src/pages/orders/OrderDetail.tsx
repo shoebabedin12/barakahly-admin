@@ -25,12 +25,15 @@ export function OrderDetail() {
   const [mergeTarget, setMergeTarget] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const [payLink, setPayLink] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
 
   function load() {
     getOrder(orderId)
       .then((res) => {
         setOrder(res.order);
         setMergeCandidates(res.mergeCandidates);
+        setPayLink(res.payLink ?? null);
       })
       .catch((err) => setError(err instanceof ApiError ? err.message : "Could not load order."));
   }
@@ -117,6 +120,24 @@ export function OrderDetail() {
       </div>
 
       {error && <div className="form-error">{error}</div>}
+
+      {payLink && order.paymentStatus !== "paid" && (
+        <div className="card" style={{ padding: 16, marginBottom: 20 }}>
+          <p style={{ margin: "0 0 8px", fontWeight: 600 }}>Payment link for the customer</p>
+          <div style={{ display: "flex", gap: 8 }}>
+            <input readOnly value={payLink} style={{ flex: 1 }} onFocus={(e) => e.target.select()} />
+            <button
+              type="button"
+              className="btn-secondary"
+              onClick={() => {
+                void navigator.clipboard.writeText(payLink).then(() => setCopied(true));
+              }}
+            >
+              {copied ? "Copied" : "Copy"}
+            </button>
+          </div>
+        </div>
+      )}
 
       <div className="dashboard-grid">
         <div>

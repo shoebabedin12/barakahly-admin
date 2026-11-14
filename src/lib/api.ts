@@ -58,8 +58,8 @@ export function apiPut<T>(path: string, body?: unknown): Promise<T> {
   return request<T>(path, { method: "PUT", body: body ? JSON.stringify(body) : undefined });
 }
 
-export function apiDelete<T>(path: string): Promise<T> {
-  return request<T>(path, { method: "DELETE" });
+export function apiDelete<T>(path: string, body?: unknown): Promise<T> {
+  return request<T>(path, { method: "DELETE", body: body ? JSON.stringify(body) : undefined });
 }
 
 /** Fetches an authenticated file (e.g. a CSV export) and hands it to the browser as a download. */

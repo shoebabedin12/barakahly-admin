@@ -9,12 +9,12 @@ export interface AdminUser {
   name: string;
   email: string;
   role: AdminRole | null;
+  twoFactorEnabled?: boolean;
 }
 
-export interface LoginResponse {
-  token: string;
-  user: AdminUser;
-}
+export type LoginResponse =
+  | { token: string; user: AdminUser; twoFactorRequired?: undefined }
+  | { twoFactorRequired: true; challengeToken: string };
 
 export interface Paginated<T> {
   data: T[];

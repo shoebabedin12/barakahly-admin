@@ -78,6 +78,9 @@ export function OrdersList() {
     <div>
       <div className="page-header">
         <h1>Orders</h1>
+        <Link to="/orders/new" className="btn-primary">
+          + Create order
+        </Link>
       </div>
 
       {stats && (

@@ -1,12 +1,14 @@
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
-import { login as loginRequest, me as meRequest } from "../lib/adminAuth";
+import { login as loginRequest, me as meRequest, twoFactorChallenge } from "../lib/adminAuth";
 import { getToken, setToken } from "../lib/auth";
 import type { AdminUser } from "../lib/types";
 
 interface AuthContextValue {
   admin: AdminUser | null;
   loading: boolean;
-  login: (email: string, password: string) => Promise<void>;
+  /** Resolves to a challenge token when the account has 2FA on; finish with verifyTwoFactor. */
+  login: (email: string, password: string) => Promise<{ challengeToken: string } | null>;
+  verifyTwoFactor: (challengeToken: string, code: string) => Promise<void>;
   logout: () => void;
 }
 
@@ -38,7 +40,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, [refresh]);
 
   async function login(email: string, password: string) {
-    const { token, user } = await loginRequest(email, password);
+    const res = await loginRequest(email, password);
+    if (res.twoFactorRequired) return { challengeToken: res.challengeToken };
+    setToken(res.token);
+    setAdmin(res.user);
+    return null;
+  }
+
+  async function verifyTwoFactor(challengeToken: string, code: string) {
+    const { token, user } = await twoFactorChallenge(challengeToken, code);
     setToken(token);
     setAdmin(user);
   }
@@ -49,7 +59,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <AuthContext.Provider value={{ admin, loading, login, logout }}>
+    <AuthContext.Provider value={{ admin, loading, login, verifyTwoFactor, logout }}>
       {children}
     </AuthContext.Provider>
   );
