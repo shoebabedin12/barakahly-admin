@@ -1,9 +1,14 @@
 import { NavLink, Outlet } from "react-router-dom";
 import { IconSquares2x2 } from "../icons";
+import { useAuth } from "../context/AuthContext";
 import { navGroups } from "../lib/navConfig";
 import { Header } from "./Header";
 
 export function AppShell() {
+  const { admin } = useAuth();
+  const isSuperAdmin = admin?.role?.slug === "super-admin";
+  const groups = navGroups.filter((g) => !g.superAdminOnly || isSuperAdmin);
+
   return (
     <div className="app-shell">
       <aside className="sidebar">
@@ -18,7 +23,7 @@ export function AppShell() {
             <span>Dashboard</span>
           </NavLink>
 
-          {navGroups.map((group) => (
+          {groups.map((group) => (
             <div key={group.title} className="nav-group">
               <p className="nav-group-title">{group.title}</p>
               {group.children.map((item) => (

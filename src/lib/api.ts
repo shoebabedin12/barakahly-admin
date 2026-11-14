@@ -61,3 +61,22 @@ export function apiPut<T>(path: string, body?: unknown): Promise<T> {
 export function apiDelete<T>(path: string): Promise<T> {
   return request<T>(path, { method: "DELETE" });
 }
+
+/** Fetches an authenticated file (e.g. a CSV export) and hands it to the browser as a download. */
+export async function apiDownload(path: string, filename: string): Promise<void> {
+  const token = getToken();
+  const response = await fetch(`${API_URL}${path}`, {
+    headers: token ? { Authorization: `Bearer ${token}` } : {},
+  });
+  if (response.status === 401) setToken(null);
+  if (!response.ok) {
+    const data = await response.json().catch(() => null);
+    throw new ApiError(data?.message ?? "Could not download the file.", response.status);
+  }
+  const url = URL.createObjectURL(await response.blob());
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = filename;
+  link.click();
+  URL.revokeObjectURL(url);
+}

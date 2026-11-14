@@ -14,7 +14,14 @@ interface ResourceListProps<T extends { id: number }> {
   /** Plural noun for messages, e.g. "coupons". */
   noun: string;
   basePath: string;
-  newLabel: string;
+  /** Omit for lists you can't add to by hand. */
+  newLabel?: string;
+  /** Replaces the "new" link in the header, e.g. with export/compose buttons. */
+  headerActions?: ReactNode;
+  /** Extra buttons per row, before Edit/Delete. */
+  rowActions?: (row: T) => ReactNode;
+  /** False hides the Edit link for read-only rows. */
+  editable?: boolean;
   columns: Column<T>[];
   load: (page: number) => Promise<Paginated<T>>;
   remove: (id: number) => Promise<unknown>;
@@ -31,6 +38,9 @@ export function ResourceList<T extends { id: number }>({
   noun,
   basePath,
   newLabel,
+  headerActions,
+  rowActions,
+  editable = true,
   columns,
   load,
   remove,
@@ -83,9 +93,12 @@ export function ResourceList<T extends { id: number }>({
     <div>
       <div className="page-header">
         <h1>{title}</h1>
-        <Link to={`${basePath}/new`} className="btn-secondary">
-          {newLabel}
-        </Link>
+        {headerActions ??
+          (newLabel && (
+            <Link to={`${basePath}/new`} className="btn-secondary">
+              {newLabel}
+            </Link>
+          ))}
       </div>
 
       {toolbar}
@@ -109,9 +122,12 @@ export function ResourceList<T extends { id: number }>({
                 ))}
                 <td>
                   <div className="row-actions">
-                    <Link to={`${basePath}/${row.id}/edit`} className="btn-secondary">
-                      Edit
-                    </Link>
+                    {rowActions?.(row)}
+                    {editable && (
+                      <Link to={`${basePath}/${row.id}/edit`} className="btn-secondary">
+                        Edit
+                      </Link>
+                    )}
                     <button className="btn-danger" onClick={() => setPendingDelete(row)}>
                       Delete
                     </button>

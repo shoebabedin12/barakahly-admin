@@ -28,6 +28,14 @@ import { PaymentMethodForm, PaymentMethodsList } from "./pages/payment-methods/P
 import { ReviewsList } from "./pages/reviews/Reviews";
 import { Settings } from "./pages/settings/Settings";
 import { ShippingZoneForm, ShippingZonesList } from "./pages/shipping-zones/ShippingZones";
+import { InvestmentForm, InvestmentsList } from "./pages/investments/Investments";
+import { NewsletterBatch, NewsletterCompose, NewsletterList, NewsletterLogs } from "./pages/newsletter/Newsletter";
+import { ActivityLog } from "./pages/activity/ActivityLog";
+import { BlogForm, BlogList } from "./pages/blog/Blog";
+import { SalesReport } from "./pages/reports/SalesReport";
+import { RoleForm, RolesList, StaffForm, StaffList } from "./pages/staff/Staff";
+import { PurchaseDetail, PurchaseForm, PurchasesList } from "./pages/purchases/Purchases";
+import { SupplierForm, SuppliersList } from "./pages/suppliers/Suppliers";
 
 export function App() {
   return (
@@ -89,6 +97,39 @@ export function App() {
               <Route path="/banners/:id/edit" element={<BannerForm />} />
 
               <Route path="/settings" element={<Settings />} />
+
+              <Route path="/suppliers" element={<SuppliersList />} />
+              <Route path="/suppliers/new" element={<SupplierForm />} />
+              <Route path="/suppliers/:id/edit" element={<SupplierForm />} />
+
+              <Route path="/purchases" element={<PurchasesList />} />
+              <Route path="/purchases/new" element={<PurchaseForm />} />
+              <Route path="/purchases/:id" element={<PurchaseDetail />} />
+              <Route path="/purchases/:id/edit" element={<PurchaseForm />} />
+
+              <Route path="/investments" element={<InvestmentsList />} />
+              <Route path="/investments/new" element={<InvestmentForm />} />
+              <Route path="/investments/:id/edit" element={<InvestmentForm />} />
+
+              <Route path="/newsletter" element={<NewsletterList />} />
+              <Route path="/newsletter/compose" element={<NewsletterCompose />} />
+              <Route path="/newsletter/:id/compose" element={<NewsletterCompose />} />
+              <Route path="/newsletter/logs" element={<NewsletterLogs />} />
+              <Route path="/newsletter/logs/:batchId" element={<NewsletterBatch />} />
+
+              <Route path="/blog" element={<BlogList />} />
+              <Route path="/blog/new" element={<BlogForm />} />
+              <Route path="/blog/:id/edit" element={<BlogForm />} />
+
+              <Route path="/reports/sales" element={<SalesReport />} />
+
+              <Route path="/users" element={<StaffList />} />
+              <Route path="/users/new" element={<StaffForm />} />
+              <Route path="/users/:id/edit" element={<StaffForm />} />
+              <Route path="/roles" element={<RolesList />} />
+              <Route path="/roles/new" element={<RoleForm />} />
+              <Route path="/roles/:id/edit" element={<RoleForm />} />
+              <Route path="/activity-log" element={<ActivityLog />} />
 
               {notYetBuiltRoutes.map((path) => (
                 <Route key={path} path={path} element={<ComingSoon />} />
